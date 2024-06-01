@@ -7,6 +7,21 @@ Crop wastage due to diseases is largely unfurled around the globe. If such a mas
 # Solution <br>
 For the backend, we have used Machine learning and Artificial Neural Network to train the images. Image pre-processing, data reduction, segmentation, and recognition are the processes used in managing images with ANN. An image can be represented as a matrix, each element of the matrix containing color information for a pixel. The matrix is used as input data into the neuronal network. The small dimensions of the images, easily and quickly help to learn and establish the size of the vector and the number of input vectors. The transfer function used is sigmoidal. The learning rate includes values between [0,1] and the error is recommended to be below 0.1. <br>
 
+# Output
+The user need to upload the image of the disease and the algorithm will predict the name of the disease. <br>
+![logo](https://github.com/WhatIfAditya7/Leaf-Disease-Detection/blob/main/1.png) <br>
+![logo](https://github.com/WhatIfAditya7/Leaf-Disease-Detection/blob/main/2.png) <br>
+
+Select the image from the local system files. <br>
+![logo](https://github.com/WhatIfAditya7/Leaf-Disease-Detection/blob/main/3.png) <br>
+
+The name of the disease is displayed below. <br>
+![logo](https://github.com/WhatIfAditya7/Leaf-Disease-Detection/blob/main/4.png) <br>
+
+
+
+
+
 
 
 
