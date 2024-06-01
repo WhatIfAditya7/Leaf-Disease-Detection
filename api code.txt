@@ -1,0 +1,66 @@
+from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
+from PIL import Image
+import io 
+import os
+import random
+import base64
+import numpy as np
+from eval import *
+
+# creating a Flask app
+app = Flask(_name_)
+CORS(app)
+
+predictor_=predictor(debug=True)
+
+@app.route('/getCaptchaImage', methods = ['GET'])
+@cross_origin()
+def getCaptchaImage():
+    path = "dataset/test/"
+    images_list = os.listdir(path)[:10000]
+
+    cpatcha_image_random = random.SystemRandom().choice(images_list)
+
+    with open(path + cpatcha_image_random, "rb") as img_file:
+        my_string = base64.b64encode(img_file.read())
+
+    response = {
+            "success" : 1,
+            "message": "Successfully fetched Captcha Image",
+            "string": str(cpatcha_image_random)[:5],
+            "data": str(my_string)[2:-1]
+        }
+
+    return response
+
+@app.route('/captchaSolver', methods = ['post'])
+@cross_origin()
+def captchaSolver():
+    req = request.json
+
+    imageString = req['imageData']
+    image = base64.b64decode(imageString)   
+
+    img = Image.open(io.BytesIO(image))
+    img.save("fetchedImage.png","png")
+    imgNumpy = np.asarray(img)
+    print("image",imgNumpy.shape)
+
+    predictedText = predictor_.predict_image("fetchedImage.png")
+    # print(predictedText)
+    
+    response = jsonify(
+        {
+            "success" : 1,
+            "message": "Successfully solved Captcha Image",
+            "predictedText" : predictedText
+        }
+    )
+    return response
+
+# driver function
+if _name_ == '_main_':
+	app.run(debug = True)
+
+
